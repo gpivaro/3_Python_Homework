@@ -3,6 +3,7 @@ import csv
 # Relative path for the csv file dataset
 file_path = "Resources/Homework_03-Python_Instructions_PyBank_Resources_budget_data.csv"
 output_file_path = "analysis/Financial_Analysis.txt"
+
 # Create the empty list for the dataset
 date = []
 Profit_Losses = []
@@ -64,7 +65,7 @@ print(
     )
 )
 
-
+# Save the result to a text file
 with open(output_file_path, "w") as text:
     text.write("Financial Analysis\n")
     text.write("----------------------------\n")
