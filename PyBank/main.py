@@ -1,8 +1,24 @@
 import csv
+import os
+
+# Use os library to retrieve the base directory of this file
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Using the os library to import the dataset file
+file_path = os.path.join(
+    BASE_DIR,
+    "PyBank",
+    "Resources",
+    "Homework_03-Python_Instructions_PyBank_Resources_budget_data.csv",
+)
+output_file_path = os.path.join(
+    BASE_DIR, "PyBank", "analysis", "Financial_Analysis.txt"
+)
+
 
 # Relative path for the csv file dataset
-file_path = "Resources/Homework_03-Python_Instructions_PyBank_Resources_budget_data.csv"
-output_file_path = "analysis/Financial_Analysis.txt"
+# file_path = "Resources/Homework_03-Python_Instructions_PyBank_Resources_budget_data.csv"
+# output_file_path = "analysis/Financial_Analysis.txt"
 
 # Create the empty list for the dataset
 date = []
@@ -84,3 +100,7 @@ with open(output_file_path, "w") as text:
             "$-", "-$"
         )
     )
+
+print()
+print("-------------------------")
+print(f"Results saved to:\n{output_file_path}")

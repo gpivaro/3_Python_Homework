@@ -1,9 +1,18 @@
 import csv
+import os
 
+# Use os library to retrieve the base directory of this file
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Relative path for the dataset csv file
-file_path = "PyPoll/Resources/Homework_03-Python_Instructions_PyPoll_Resources_election_data.csv"
-output_file_path = "PyPoll/analysis/elections.txt"
+# Using the os library to import the dataset file
+file_path = os.path.join(
+    BASE_DIR,
+    "PyPoll",
+    "Resources",
+    "Homework_03-Python_Instructions_PyPoll_Resources_election_data.csv",
+)
+output_file_path = os.path.join(BASE_DIR, "PyPoll", "analysis", "elections.txt")
+
 
 # Create empty lists to store the data from the csv file
 voter_ID = []
@@ -59,7 +68,7 @@ for cand_vote in percentage_votes_candidate_won:
     j += 1
 winner_election = list_candidates[winner_index]
 
-
+# Print the results in the terminal
 print()
 print("Election Results")
 print("-------------------------")
@@ -91,3 +100,7 @@ with open(output_file_path, "w") as text:
     text.write("-------------------------\n")
     text.write(f"{winner_election}\n")
     text.write("-------------------------\n")
+
+print()
+print("-------------------------")
+print(f"Results saved to:\n{output_file_path}")
