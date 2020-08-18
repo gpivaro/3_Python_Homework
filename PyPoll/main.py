@@ -33,7 +33,10 @@ with open(file_path, "r") as csvfile:
 
 
 # Analyzes the votes and calculates each of the following:
-# The total number of votes cast
+
+# -------------------------------------------------------------
+# 1. The total number of votes cast
+# -------------------------------------------------------------
 total_number_votes = len(voter_ID)
 
 
@@ -41,8 +44,9 @@ total_number_votes = len(voter_ID)
 # Use set function to retrieve unique values
 list_candidates = list(set(candidate))
 
-
-# The total number of votes each candidate won
+# -------------------------------------------------------------
+# 2. The total number of votes each candidate won
+# -------------------------------------------------------------
 total_number_votes_candidate = []
 for name in list_candidates:
     num_vote = 0
@@ -51,22 +55,32 @@ for name in list_candidates:
             num_vote += 1
     total_number_votes_candidate.append(num_vote)
 
-
-# The percentage of votes each candidate won
+# -------------------------------------------------------------
+# 3. The percentage of votes each candidate won
+# -------------------------------------------------------------
 percentage_votes_candidate_won = [
     (vote / total_number_votes) * 100 for vote in total_number_votes_candidate
 ]
 
 
-# The winner of the election based on popular vote.
-winner = 0
-j = 0
-for cand_vote in percentage_votes_candidate_won:
-    if cand_vote > winner:
-        winner = cand_vote
-        winner_index = j
-    j += 1
-winner_election = list_candidates[winner_index]
+# Order the list of percentage of votes
+percentage_votes_ordered = sorted(percentage_votes_candidate_won, reverse=True)
+
+# Retrieve the index of the sorted percentage in the original list of votes
+winner_index = []
+for votes_order in percentage_votes_ordered:
+    j = 0  # Initialize the variable that will retrieve the index
+    for perc_votes in percentage_votes_candidate_won:
+        if perc_votes == votes_order:
+            get_index = j
+        j += 1
+    winner_index.append(get_index)
+
+# -------------------------------------------------------------
+# 4. The winner of the election based on popular vote.
+# -------------------------------------------------------------
+winner_election = list_candidates[winner_index[0]]
+
 
 # Print the results in the terminal
 print()
@@ -74,12 +88,10 @@ print("Election Results")
 print("-------------------------")
 print(f"Total Votes: {total_number_votes:,.0f}")
 print("-------------------------")
-
-for i in range(len(list_candidates)):
+for i in winner_index:
     print(
         f"{list_candidates[i]} {percentage_votes_candidate_won[i]:,.2f}% ({total_number_votes_candidate[i]:,.0f})"
     )
-
 print("-------------------------")
 print(winner_election)
 print("-------------------------")
@@ -92,7 +104,7 @@ with open(output_file_path, "w") as text:
     text.write(f"Total Votes: {total_number_votes:,.0f}\n")
     text.write("-------------------------\n")
 
-    for i in range(len(list_candidates)):
+    for i in winner_index:
         text.write(
             f"{list_candidates[i]} {percentage_votes_candidate_won[i]:,.2f}% ({total_number_votes_candidate[i]:,.0f})\n"
         )
@@ -102,5 +114,5 @@ with open(output_file_path, "w") as text:
     text.write("-------------------------\n")
 
 print()
-print("-------------------------")
 print(f"Results saved to:\n{output_file_path}")
+
