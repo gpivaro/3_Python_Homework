@@ -1,6 +1,8 @@
-# 3_Python_Homework
+# 3 Python Homework
 
-This repository contains two diferent scenarios:
+## Rice University Data Analytics and Visualization Boot Camp 2020
+
+This repository contains two different scenarios:
 
 ## 1 - PyBank
 
