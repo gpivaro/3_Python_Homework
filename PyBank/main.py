@@ -1,10 +1,14 @@
 import csv
 import os
 
+# -------------------------------------------------------------
 # Use os library to retrieve the base directory of this file
+# -------------------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# -------------------------------------------------------------
 # Using the os library to import the dataset file
+# -------------------------------------------------------------
 file_path = os.path.join(
     BASE_DIR,
     "PyBank",
@@ -15,12 +19,9 @@ output_file_path = os.path.join(
     BASE_DIR, "PyBank", "analysis", "Financial_Analysis.txt"
 )
 
-
-# Relative path for the csv file dataset
-# file_path = "Resources/Homework_03-Python_Instructions_PyBank_Resources_budget_data.csv"
-# output_file_path = "analysis/Financial_Analysis.txt"
-
+# -------------------------------------------------------------
 # Create the empty list for the dataset
+# -------------------------------------------------------------
 date = []
 Profit_Losses = []
 
@@ -34,28 +35,36 @@ with open(file_path, "r") as csvfile:
         date.append(row[0])
         Profit_Losses.append(int(row[1]))
 
-
-# The total number of months included in the dataset
+# -------------------------------------------------------------
+# 1. The total number of months included in the dataset
+# -------------------------------------------------------------
 total_number_months = len(date)
 
-# The net total amount of "Profit/Losses" over the entire period
+# -------------------------------------------------------------
+# 2. The net total amount of "Profit/Losses" over the entire period
+# -------------------------------------------------------------
 total_amount_Profit_Losses = sum(Profit_Losses)
 
-# The average of the changes in "Profit/Losses" over the entire period
+# -------------------------------------------------------------
+# 3. The average of the changes in "Profit/Losses" over the entire period
+# -------------------------------------------------------------
 changes = []
 for i in range(len(Profit_Losses) - 1):
     changes.append(Profit_Losses[i + 1] - Profit_Losses[i])
 average_changes_Profit_Losses = sum(changes) / (total_number_months - 1)
 
-# The greatest increase in profits (date and amount) over the entire period
+# -------------------------------------------------------------
+# 4. The greatest increase in profits (date and amount) over the entire period
+# -------------------------------------------------------------
 greatest_increase_profits = 0
 for i in range(len(Profit_Losses)):
     if Profit_Losses[i] - Profit_Losses[i - 1] > greatest_increase_profits:
         greatest_increase_profits = Profit_Losses[i] - Profit_Losses[i - 1]
         date_greatest_increase_profits = date[i]
 
-
-# The greatest decrease in losses (date and amount) over the entire period
+# -------------------------------------------------------------
+# 5. The greatest decrease in losses (date and amount) over the entire period
+# -------------------------------------------------------------
 greatest_decrease_losses = 0
 for i in range(len(Profit_Losses)):
     if Profit_Losses[i] - Profit_Losses[i - 1] < greatest_decrease_losses:
@@ -63,7 +72,9 @@ for i in range(len(Profit_Losses)):
         date_greatest_decrease_losses = date[i]
 
 
+# -------------------------------------------------------------
 # Print the final results in the terminal
+# -------------------------------------------------------------
 print()
 print("Financial Analysis")
 print("----------------------------")
@@ -81,7 +92,9 @@ print(
     )
 )
 
+# -------------------------------------------------------------
 # Save the result to a text file
+# -------------------------------------------------------------
 with open(output_file_path, "w") as text:
     text.write("Financial Analysis\n")
     text.write("----------------------------\n")
@@ -100,7 +113,6 @@ with open(output_file_path, "w") as text:
             "$-", "-$"
         )
     )
-
 print()
 print("-------------------------")
 print(f"Results saved to:\n{output_file_path}")
